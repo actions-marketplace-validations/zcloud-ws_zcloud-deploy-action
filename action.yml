@@ -30,12 +30,16 @@ inputs:
     description: 'Name of the environment from which the env vars will be copied to the new environment (requires usage together with the --create argument)'
     required: false
     default: ""
+  api-cli-uri:
+    description: 'Custom API URL for full private region deployments'
+    required: false
+    default: ""
   cli-extra-args:
     description: 'CLI extra arguments.'
     required: false
 runs:
   using: 'docker'
-  image: docker://zcloudws/zcloud-cli:v1.0.26
+  image: docker://zcloudws/zcloud-cli:v1.0.28
   env:
     ZCLOUD_USER_TOKEN: ${{ inputs.user-token }}
     ZCLOUD_ENV_TOKEN: ${{ inputs.env-token }}
@@ -44,6 +48,7 @@ runs:
     ZCLOUD_IMAGE: ${{ inputs.image }}
     ZCLOUD_APP_SLUG: ${{ inputs.app }}
     ZCLOUD_COPY_ENV_VARS_FROM: ${{ inputs.copy-env-vars-from }}
+    ZCLOUD_API_CLI_URI: ${{ inputs.api-cli-uri }}
   entrypoint: sh
   args:
     - -c
